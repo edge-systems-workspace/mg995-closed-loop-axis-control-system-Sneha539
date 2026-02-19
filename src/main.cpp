@@ -1,3 +1,17 @@
+/**
+* @file main.ino
+ * @brief MG995 Closed-Loop Axis Control System
+ * @author YOUR_NAME
+ * @date YYYY-MM-DD
+ *
+ * @details
+ * Implements PWM-based closed-loop control for MG995 servo motor.
+ * Accepts angle input via Serial Monitor and validates range (0–180).
+ */
+
+## 🧠 Code Overview
+The system uses the `Servo.h` library to generate PWM signals for angular positioning.
+**/
 #include <Arduino.h>
 #include <Servo.h>
 Servo MYSERVO;
@@ -21,18 +35,3 @@ void loop() {
 
     digitalWrite(trigPin,0);
     delayMicroseconds(2);
-
-    long duration = pulseIn(echoPin,1);
-    long distance = (duration*0.0343)/2;
-    if(distance<=5){
-        MYSERVO.write(360);
-    }
-    else{
-        MYSERVO.write(0);
-    }
-    Serial.print("distance: ");
-    Serial.print(distance);
-    Serial.println("cm");
-
-    delay(500);
-}
