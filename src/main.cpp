@@ -9,7 +9,7 @@
  * Accepts angle input via Serial Monitor and validates range (0–180).
  */
 
-## 🧠 Code Overview
+/**Code Overview
 The system uses the `Servo.h` library to generate PWM signals for angular positioning.
 **/
 #include <Arduino.h>
@@ -34,4 +34,18 @@ void loop() {
     delayMicroseconds(10);
 
     digitalWrite(trigPin,0);
-    delayMicroseconds(2);
+    long duration = pulseIn(echoPin, HIGH);
+    long distance = (duration * 0.0343) / 2;
+
+    if (distance <= 5) {
+        MYSERVO.write(180);   // rotate servo
+    } else {
+        MYSERVO.write(0);     // reset servo
+    }
+
+    Serial.print("Distance: ");
+    Serial.print(distance);
+    Serial.println(" cm");
+
+    delay(500);
+}
